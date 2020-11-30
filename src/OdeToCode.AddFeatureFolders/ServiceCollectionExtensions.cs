@@ -24,9 +24,17 @@ namespace Microsoft.Extensions.DependencyInjection
                 .AddRazorOptions(o =>
                 {
                     o.ViewLocationFormats.Clear();
-                    o.ViewLocationFormats.Add(options.FeatureNamePlaceholder + @"\{0}.cshtml");
-                    o.ViewLocationFormats.Add(options.FeatureFolderName + @"\Shared\{0}.cshtml");
-                    o.ViewLocationFormats.Add(options.DefaultViewLocation);
+                    o.ViewLocationFormats.Add($"/{options.FeatureNamePlaceholder}/{{0}}.cshtml"); // default: /{Feature}/{0}.cshtml
+                    o.ViewLocationFormats.Add($"/{options.FeatureFolderName}/Shared/{{0}}.cshtml"); // default: /Features/Shared/{0}.cshtml
+                    o.ViewLocationFormats.Add($"/{options.FeatureFolderName}/Shared/Pages/{{0}}.cshtml"); // default: /Features/Shared/Pages/{0}.cshtml
+                    o.ViewLocationFormats.Add(options.DefaultViewLocation); // default: /Features/{0}/{1}.cshtml
+
+                    o.PageViewLocationFormats.Clear();
+                    o.PageViewLocationFormats.Add($"/{options.FeatureNamePlaceholder}/Pages/{{0}}.cshtml"); // default: {/Feature}/Pages/{{0}}.cshtml
+                    o.PageViewLocationFormats.Add($"/{options.FeatureNamePlaceholder}/{{0}}.cshtml"); // default: /{Feature}/{{0}}.cshtml
+                    o.PageViewLocationFormats.Add($"/{options.FeatureFolderName}/Shared/Pages/{{0}}.cshtml"); // default: /Features/Shared/Pages/{{0}}.cshtml
+                    o.PageViewLocationFormats.Add($"/{options.FeatureFolderName}/Shared/{{0}}.cshtml"); // default: /Features/Shared/{{0}}.cshtml
+                    o.PageViewLocationFormats.Add(options.DefaultPageViewLocation);  // default: /Features/{1}/Pages/{0}.cshtml
 
                     o.ViewLocationExpanders.Add(expander);
                 });
@@ -42,11 +50,26 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddRazorOptions(o =>
             {
                 o.AreaViewLocationFormats.Clear();
-                o.AreaViewLocationFormats.Add(options.DefaultAreaViewLocation);
-                o.AreaViewLocationFormats.Add(options.AreaFolderName + @"\{2}\{1}\{0}.cshtml");
-                o.AreaViewLocationFormats.Add(options.AreaFolderName + @"\{2}\Shared\{0}.cshtml");
-                o.AreaViewLocationFormats.Add(options.AreaFolderName + @"\Shared\{0}.cshtml");
-                o.AreaViewLocationFormats.Add(options.FeatureFolderName + @"\Shared\{0}.cshtml");
+                o.AreaViewLocationFormats.Add(options.DefaultAreaViewLocation); // default: Areas/{2}/{Feature}/{0}.cshtml
+                o.AreaViewLocationFormats.Add($"/{options.AreaFolderName}/{{2}}/{{1}}/{{0}}.cshtml");
+                o.AreaViewLocationFormats.Add($"/{options.AreaFolderName}/{{2}}/{{1}}/Pages/{{0}}.cshtml");
+                o.AreaViewLocationFormats.Add($"/{options.AreaFolderName}/{{2}}/Shared/{{0}}.cshtml");
+                o.AreaViewLocationFormats.Add($"/{options.AreaFolderName}/{{2}}/Shared/Pages/{{0}}.cshtml");
+                o.AreaViewLocationFormats.Add($"/{options.AreaFolderName}/Shared/{{0}}.cshtml");
+                o.AreaViewLocationFormats.Add($"/{options.AreaFolderName}/Shared/Pages/{{0}}.cshtml");
+                o.AreaViewLocationFormats.Add($"/{options.FeatureFolderName}/Shared/{{0}}.cshtml");
+                o.AreaViewLocationFormats.Add($"/{options.FeatureFolderName}/Shared/Pages/{{0}}.cshtml");
+
+                o.AreaPageViewLocationFormats.Clear();
+                o.AreaPageViewLocationFormats.Add(options.DefaultAreaPageViewLocation); // default: /Areas/{2}/{Feature}/Pages/{0}.cshtml
+                o.AreaPageViewLocationFormats.Add($"/{options.AreaFolderName}/{{2}}/{{1}}/Pages/{{0}}.cshtml");
+                o.AreaPageViewLocationFormats.Add($"/{options.AreaFolderName}/{{2}}/{{1}}/{{0}}.cshtml");
+                o.AreaPageViewLocationFormats.Add($"/{options.AreaFolderName}/{{2}}/Shared/Pages/{{0}}.cshtml");
+                o.AreaPageViewLocationFormats.Add($"/{options.AreaFolderName}/{{2}}/Shared/{{0}}.cshtml");
+                o.AreaPageViewLocationFormats.Add($"/{options.AreaFolderName}/Shared/Pages/{{0}}.cshtml");
+                o.AreaPageViewLocationFormats.Add($"/{options.AreaFolderName}/Shared/{{0}}.cshtml");
+                o.AreaPageViewLocationFormats.Add($"/{options.FeatureFolderName}/Shared/Pages/{{0}}.cshtml");
+                o.AreaPageViewLocationFormats.Add($"/{options.FeatureFolderName}/Shared/{{0}}.cshtml");
             });
 
             return services;

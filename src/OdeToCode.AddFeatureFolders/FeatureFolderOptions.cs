@@ -13,7 +13,8 @@ namespace OdeToCode.AddFeatureFolders
             FeatureFolderName = "Features";
             DeriveFeatureFolderName = null;
             FeatureNamePlaceholder = "{Feature}";
-            DefaultViewLocation = @"\Features\{0}\{1}.cshtml";
+            DefaultViewLocation = "/Features/{1}/{0}.cshtml";
+            DefaultPageViewLocation = "/Features/{1}/Pages/{0}.cshtml";
         }
 
         /// <summary>
@@ -47,5 +48,12 @@ namespace OdeToCode.AddFeatureFolders
         /// Razor replaces the controller name into {0} placeholder & view name into the {1} placeholder. 
         /// </summary>
         public string DefaultViewLocation { get; set; }
+
+        /// <summary>
+        /// The default page location. Helps intellisense find razor pages. Example:
+        ///     "\Features\{0}\Pages\{1}.cshtml". 
+        /// Razor replaces the page name into {0} placeholder & view name into the {1} placeholder. 
+        /// </summary>
+        public string DefaultPageViewLocation { get; set; }
     }
 }

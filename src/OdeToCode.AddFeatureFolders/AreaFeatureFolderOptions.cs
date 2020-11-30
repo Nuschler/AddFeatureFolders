@@ -16,7 +16,8 @@
         public AreaFeatureFolderOptions(FeatureFolderOptions options)
         {
             AreaFolderName = "Areas";
-            DefaultAreaViewLocation = $@"Areas\{{2}}\{options.FeatureNamePlaceholder}\{{0}}.cshtml";
+            DefaultAreaViewLocation = $"/Areas/{{2}}/{options.FeatureNamePlaceholder}/{{0}}.cshtml";
+            DefaultAreaPageViewLocation = $"/Areas/{{2}}/{options.FeatureNamePlaceholder}/Pages/{{0}}.cshtml";
             FeatureFolderName = options.FeatureFolderName;
         }
 
@@ -33,6 +34,15 @@
         /// the placeholder with the path to the feature folder.
         /// </summary>
         public string DefaultAreaViewLocation { get; set; }
+
+        /// <summary>
+        /// The default page location for areas. Helps intellisense find razor pages. Example:
+        ///     "\Areas\{2}\{Feature}\Pages\{0}.cshtml". 
+        /// Razor replaces the area name into {2} placeholder, the page name into {1} placeholder & view name into the {0} placeholder.
+        /// The {Feature} placeholder must be the same name as the <see cref="FeatureFolderOptions"/> FeatureNamePlaceholder to replace
+        /// the placeholder with the path to the feature folder.
+        /// </summary>
+        public string DefaultAreaPageViewLocation { get; set; }
 
         /// <summary>
         /// The name of the root feature folder on disk (default: 'Features')
